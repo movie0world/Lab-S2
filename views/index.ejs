@@ -25,11 +25,11 @@
           <div class="form-group">
             <label for="inputEmail4">Course ID</label>
             <input
-              type="text"
+              type="number"
               class="form-control"
               name="Course_ID"
               id="inputEmail4"
-              value="<% if(updated){%><%=contexts.Course_ID%><%}%>"
+              value="<% if(updated){%><%=data.Course_ID%><%}%>"
               placeholder="Enter your Course ID"
             />
           </div>
@@ -40,7 +40,7 @@
               class="form-control"
               name="Course_Name"
               id="inputEmail4"
-              value="<% if(updated){%><%=contexts.Course_Name%><%}%>"
+              value="<% if(updated){%><%=data.Course_Name%><%}%>"
               placeholder="Enter your product name"
             />
           </div>
@@ -52,7 +52,7 @@
               class="form-control"
               name="Course_Fee"
               id="inputAddress"
-              value="<% if(updated){%><%=contexts.Course_Fee%><%}%>"
+              value="<% if(updated){%><%=data.Course_Fee%><%}%>"
               placeholder="Enter your Course Fee"
             />
           </div>
@@ -63,13 +63,13 @@
               class="form-control"
               name="Course_Duration"
               id="inputAddress"
-              value="<% if(updated){%><%=contexts.Course_Duration%><%}%>"
+              value="<% if(updated){%><%=data.Course_Duration%><%}%>"
               placeholder="Enter your Course Duration"
             />
           </div>
 
           <% if (updated){%>
-          <input type="hidden" name="id" value="<%= contexts.id %>" />
+          <input type="hidden" name="id" value="<%= data.id %>" />
           <%}%> <% if(!updated) { %>
 
           <button type="submit" class="btn btn-primary btn-block">add</button>
@@ -82,10 +82,10 @@
           <%}%>
         </form>
       </div>
-      <% if (contexts.length>0) {%>
+      <% if (data.length>0) {%>
 
       <div class="col-7">
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -96,18 +96,18 @@
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <% for (var context in contexts){ %>
+          <% for (var item in data){ %>
 
           <tbody>
             <tr>
-              <th scope="row"><%= parseInt( context)+1 %></th>
-              <th><%= contexts[context].Course_Name%></th>
-              <th><%= contexts[context].Course_ID%></th>
-              <td><%= contexts[context].Course_Duration%></td>
-              <td><%= contexts[context].Course_Fee%></td>
+              <th scope="row"><%= parseInt( item)+1 %></th>
+              <th><%= data[item].Course_Name%></th>
+              <th><%= data[item].Course_ID%></th>
+              <td><%= data[item].Course_Duration%></td>
+              <td><%= data[item].Course_Fee%></td>
 
               <td class="d-flex flex-inline">
-                <form class="mr-2" action="edit/<%= contexts[context].id %>">
+                <form class="mr-2" action="edit/<%= data[item].id %>">
                   <button class="btn btn-success" type="submit">Edit</button>
                 </form>
 
@@ -116,7 +116,7 @@
                 <form
                   class="ml-2"
                   method="POST"
-                  action="delete/<%= contexts[context].id %>"
+                  action="delete/<%= data[item].id %>"
                 >
                   <button class="btn btn-danger" type="submit">Delete</button>
                 </form>

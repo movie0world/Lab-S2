@@ -7,9 +7,9 @@ var router = express.Router();
 
 // Home page route.
 router.get("/", async function (req, res, next) {
-  let data = await Course.find({}).sort({ createdAt: "desc" });
+  let data1 = await Course.find({}).sort({ createdAt: "desc" });
   res.render("index", {
-    contexts: data,
+    data: data1,
     updated: false,
     message: "",
   });
@@ -24,16 +24,16 @@ async function validatedata(req, res, next) {
   ) {
     next();
   } else {
-    let data = await Course.find({}).sort({ createdAt: "desc" });
+    let data1 = await Course.find({}).sort({ createdAt: "desc" });
     
-    data = data;
+    data = data1;
     let message = "Please fill all the field ";
     if (req.url == "/add") {
-      res.render("index", { message: message, contexts: data, updated: false });
+      res.render("index", { message: message, data: data1, updated: false });
     } else {
       res.render("index", {
         message: message,
-        contexts: req.body,
+        data: req.body,
         updated: true,
       });
     }
@@ -92,9 +92,9 @@ router.post("/edit/", validatedata, async function (req, res, next) {
 
 router.get("/edit/:id", function (req, res, next) {
   Course.findById({ _id: req.params.id })
-    .then((data) => {
+    .then((data1) => {
       
-      res.render("index", { contexts: data, message: "", updated: true });
+      res.render("index", { data: data1, message: "", updated: true });
     })
     .catch((err) => {
       console.error(err);
