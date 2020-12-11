@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <% if(message){%>
+    <div class="alert alert-danger mt-2 mx-2" role="alert"><%= message %></div>
+
+    <%}%>
+    <div class="row mt-3">
+      <div class="col-4 mx-3">
+        <form
+          method="POST"
+          action="<% if(!updated){%>/add<%}else {%>/edit<%}%>"
+        >
+          <div class="form-group">
+            <label for="inputEmail4">Course ID</label>
+            <input
+              type="text"
+              class="form-control"
+              name="Course_ID"
+              id="inputEmail4"
+              value="<% if(updated){%><%=contexts.Course_ID%><%}%>"
+              placeholder="Enter your Course ID"
+            />
+          </div>
+          <div class="form-group">
+            <label for="inputEmail4">Course Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="Course_Name"
+              id="inputEmail4"
+              value="<% if(updated){%><%=contexts.Course_Name%><%}%>"
+              placeholder="Enter your product name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="inputAddress">Course Fee</label>
+            <input
+              type="number"
+              class="form-control"
+              name="Course_Fee"
+              id="inputAddress"
+              value="<% if(updated){%><%=contexts.Course_Fee%><%}%>"
+              placeholder="Enter your Course Fee"
+            />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Course Duration</label>
+            <input
+              type="number"
+              class="form-control"
+              name="Course_Duration"
+              id="inputAddress"
+              value="<% if(updated){%><%=contexts.Course_Duration%><%}%>"
+              placeholder="Enter your Course Duration"
+            />
+          </div>
+
+          <% if (updated){%>
+          <input type="hidden" name="id" value="<%= contexts.id %>" />
+          <%}%> <% if(!updated) { %>
+
+          <button type="submit" class="btn btn-primary btn-block">add</button>
+
+          <%} else{ %>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            Update
+          </button>
+          <%}%>
+        </form>
+      </div>
+      <% if (contexts.length>0) {%>
+
+      <div class="col-7">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Course Name</th>
+              <th scope="col">Course ID</th>
+              <th scope="col">Course Duration</th>
+              <th scope="col">Course Fee</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <% for (var context in contexts){ %>
+
+          <tbody>
+            <tr>
+              <th scope="row"><%= parseInt( context)+1 %></th>
+              <th><%= contexts[context].Course_Name%></th>
+              <th><%= contexts[context].Course_ID%></th>
+              <td><%= contexts[context].Course_Duration%></td>
+              <td><%= contexts[context].Course_Fee%></td>
+
+              <td class="d-flex flex-inline">
+                <form class="mr-2" action="edit/<%= contexts[context].id %>">
+                  <button class="btn btn-success" type="submit">Edit</button>
+                </form>
+
+                /
+
+                <form
+                  class="ml-2"
+                  method="POST"
+                  action="delete/<%= contexts[context].id %>"
+                >
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+          <%}%>
+        </table>
+      </div>
+      <% }%>
+    </div>
+    <script>
+      console.log("value", document.querySelector(".alert"));
+      if (document.querySelector(".alert")) {
+        console.log("Hello");
+        setTimeout(() => {
+          // document.querySelector('.alert').className="fade"
+          document.querySelector(".alert").style.display = "none";
+        }, 2000);
+      }
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
